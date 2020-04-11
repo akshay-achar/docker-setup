@@ -19,6 +19,67 @@ services:
       akshay_karkala:
         ipv4_address: 172.16.0.2
 
+  mysql_docker:
+    image: mysql:5.7
+    container_name: mysql_apache
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123
+      - MYSQL_USER=homestead
+      - MYSQL_PASSWORD=docker
+    ports:
+      - "33060:3306"
+    volumes:
+      - ./data/db/mysql:/var/lib/mysql
+      - type: bind
+        source: ./mysql_dump
+        target: /docker-entrypoint-initdb.d/
+    networks:
+      akshay_karkala:
+        ipv4_address: 172.16.0.8
+
+  mongo_docker:
+    image: mongo:4.0.8
+    container_name: mongo_apache
+    volumes:
+      - "./mongo:/data/db"
+      - type: bind
+        source: ./mongo_dump
+        target: /docker-entrypoint-initdb.d
+    ports:
+      - "27018:27017"
+    # environment:
+    networks:
+      akshay_karkala:
+        ipv4_address: 172.16.0.4
+
+  redis_docker:
+    image: redis:4.0
+    container_name: redis_apache
+    volumes:
+      - "./redis:/data"
+    ports:
+      - "6380:6379"
+    networks:
+      akshay_karkala:
+        ipv4_address: 172.16.0.6
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_apache
+    links:
+      - mysql_docker
+    ports:
+      - 8181:80
+    environment:
+      PMA_HOST: mysql_docker
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: root123
+    networks:
+      akshay_karkala:
+        ipv4_address: 172.16.0.7
+
+
+
 networks:
   akshay_karkala:
     driver: bridge
