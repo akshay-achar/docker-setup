@@ -19,6 +19,6 @@ jobs:
 
     - uses: actions/checkout@v2
     - name: Docker Compose Up 
-      run: mkdir project && && mkdir mongo_dump && mkdir mysql_dump && docker-compose up -d && docker ps
+      run: mkdir project && mkdir mongo_dump && mkdir mysql_dump && docker-compose up -d && docker ps
 
 
