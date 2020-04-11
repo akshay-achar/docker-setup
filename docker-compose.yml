@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  php_apache:
+    image: akshayachar2011/php-apache:latest
+    container_name: php_apache
+    volumes:
+      - type: bind
+        source: ./project
+        target: /var/www/html
+      - type: bind
+        source: ./apache/apache-config.conf
+        target: /etc/apache2/sites-available/000-default.conf
+      - type: bind
+        source: ./apache/ports.conf
+        target: /etc/apache2/ports.conf
+    ports:
+      - "80:80"
+    networks:
+      akshay_karkala:
+        ipv4_address: 172.16.0.2
+
+networks:
+  akshay_karkala:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.0.0/24    
