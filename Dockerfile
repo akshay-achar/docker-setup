@@ -2,7 +2,7 @@ From php:7.2.14-apache-stretch
 
 RUN apt-get update
 
-RUN apt-get install -y vim
+RUN apt-get install vim
 
 RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
 && curl -o /tmp/composer-setup.sig https://composer.github.io/installer.sig \
