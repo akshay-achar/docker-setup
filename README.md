@@ -38,3 +38,5 @@
 |11|To View the docker-compose process|`docker-compose ps`|
   
   
+* Note: For each pull request check a github actions or workflow is setup Docker image. Which will check for docker build and docker compose and give the report of it.  
+  
